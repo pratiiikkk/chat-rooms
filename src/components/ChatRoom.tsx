@@ -65,7 +65,7 @@ export function ChatRoom() {
   return (
     <div className="flex h-[600px] w-full max-w-2xl flex-col mx-2">
       <Card className="flex h-full flex-col mx-2">
-        <CardHeader className="flex-shrink-0 pb-4">
+        <CardHeader className="shrink-0 pb-4">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-sm sm:text-xl">
               <Users className="h-5 w-5" />
