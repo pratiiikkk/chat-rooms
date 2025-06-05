@@ -17,7 +17,7 @@ export function ChatRoom() {
 
   useEffect(() => {
     if (scrollAreaRef.current) {
-    
+
       scrollAreaRef.current?.scrollIntoView({
         behavior: "smooth",
         block: "end",
@@ -64,21 +64,29 @@ export function ChatRoom() {
 
   return (
     <div className="flex h-[600px] w-full max-w-2xl flex-col mx-2">
-      <Card className="flex h-full flex-col mx-2">
-        <CardHeader className="shrink-0 pb-4">
+      <Card className="flex h-full flex-col ">
+        <CardHeader className="shrink-0 pb-4 border-b">
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2 text-sm sm:text-xl">
-              <Users className="h-5 w-5" />
+              <Users className="h-5 w-5 hidden sm:block" />
               Room: {chatState.roomId}
             </CardTitle>
-            <div className="flex flex-col sm:flex-row items-center gap-2">
+            <div className="flex  sm:flex-row items-center gap-2">
               <Button variant="outline" size="sm" onClick={copyRoomId}>
-                <Copy className="mr-1 h-4 w-4" />
-                Copy ID
+                <Copy className=" h-4 w-4" />
+                <span
+                  className="hidden sm:inline-block ml-1"
+                >
+                  Copy ID
+                </span>
               </Button>
               <Button variant="outline" size="sm" onClick={handleLeave}>
-                <LogOut className="mr-1 h-4 w-4" />
-                Leave
+                <LogOut className="h-4 w-4" />
+                <span
+                  className="hidden sm:inline-block ml-1"
+                >
+                  Leave
+                </span>
               </Button>
             </div>
           </div>
@@ -97,19 +105,19 @@ export function ChatRoom() {
                     <span className="font-medium">{msg.name}</span>
                     <span>{formatTimestamp(msg.timestamp)}</span>
                   </div>
-                  
-                    <div
-                        className={cn(
-                            "max-w-[80%] rounded-lg p-3 overflow-x-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent hover:scrollbar-thumb-muted-foreground/40",
-                            msg.userId === chatState.currentUserId
-                                ? "ml-auto bg-primary text-primary-foreground"
-                                : msg.userId === "system"
-                                    ? "mx-auto bg-muted text-center text-sm italic text-muted-foreground"
-                                    : "bg-muted"
-                        )}
-                    >
-                        {msg.content}
-                    </div>
+
+                  <div
+                    className={cn(
+                      "max-w-[80%] rounded-lg p-3 overflow-x-auto scrollbar-thin scrollbar-thumb-muted-foreground/20 scrollbar-track-transparent hover:scrollbar-thumb-muted-foreground/40",
+                      msg.userId === chatState.currentUserId
+                        ? "ml-auto bg-primary text-primary-foreground"
+                        : msg.userId === "system"
+                          ? "mx-auto bg-muted text-center text-sm italic text-muted-foreground"
+                          : "bg-muted"
+                    )}
+                  >
+                    {msg.content}
+                  </div>
                 </div>
               ))}
               {chatState.messages.length === 0 && (
