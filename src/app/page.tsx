@@ -25,7 +25,7 @@ export default function Home() {
         )}
       />
 
-      <main className="relative z-10 flex h-screen flex-1 flex-col items-center justify-center py-8 md:py-12">
+      <main className="relative z-10 flex h-screen flex-1 flex-col items-center justify-center py-8 md:py-12 mx-2" >
         {chatState.inRoom ? <ChatRoom /> : <RoomActions />}
       <footer
       className="max-w-4xl mx-auto px-4 py-8 text-center text-sm text-neutral-500 dark:text-neutral-400"
