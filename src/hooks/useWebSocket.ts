@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { toast } from "sonner";
 
 export interface Message {
   content: string;
@@ -15,6 +16,7 @@ export interface ChatState {
   messages: Message[];
   currentUserId: string | null;
   roomId: string | null;
+  inRoom: boolean;
 }
 
 interface IncomingMessage {
@@ -46,6 +48,7 @@ export function useWebSocket() {
     messages: [],
     currentUserId: null,
     roomId: null,
+    inRoom: false,
   });
 
   const ws = useRef<WebSocket | null>(null);
@@ -119,6 +122,13 @@ export function useWebSocket() {
             ...prev,
             roomId: message.roomId!,
           }));
+          toast.success(
+            `Room created successfully! Room ID: ${message.roomId}`,{
+              description:"copied to clipboard"
+            }
+          );
+          
+          navigator.clipboard.writeText(message.roomId);
         }
         break;
 
@@ -127,6 +137,7 @@ export function useWebSocket() {
           ...prev,
           roomId: message.roomId || prev.roomId,
           userCount: message.userCount || prev.userCount,
+          inRoom: true,
         }));
         break;
 
@@ -208,7 +219,6 @@ export function useWebSocket() {
     }
   }, []);
 
-  // Public methods
   const createRoom = useCallback(() => {
     sendMessage({ type: "create_room" });
   }, [sendMessage]);
@@ -248,6 +258,7 @@ export function useWebSocket() {
       messages: [],
       currentUserId: null,
       roomId: null,
+      inRoom: false,
     });
   }, []);
 
