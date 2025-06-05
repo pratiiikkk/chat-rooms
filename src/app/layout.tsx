@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import { ChatProvider } from "@/context/ChatProvider";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -27,8 +28,8 @@ export default function RootLayout({
       <body
         className={`${spaceGrotesk.className} ${jetBrainsMono.variable}  dark antialiased `}
       >
-        {children}
-        <Toaster richColors/>
+        <ChatProvider>{children}</ChatProvider>
+        <Toaster />
       </body>
     </html>
   );
